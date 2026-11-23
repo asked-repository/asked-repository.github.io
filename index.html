@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Survey Finder — shared questionnaires from our projects</title>
+<title>Survey Finder — a collaborative survey atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -14,32 +14,62 @@
   --radius:10px;
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif}
 h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;font-weight:650;margin:0}
 a{color:var(--accent)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
-header{padding:36px 0 20px}
-header h1{font-size:34px;letter-spacing:-.01em}
-header p.lead{max-width:760px;color:var(--muted);margin:8px 0 0;font-size:16px}
-.stats{display:flex;gap:28px;margin:22px 0 6px;flex-wrap:wrap}
-.stat b{display:block;font-family:"Source Serif 4",serif;font-size:28px;line-height:1}
-.stat span{color:var(--muted);font-size:13px}
-.countries{margin:14px 0 0}
-.countries .label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+button{font:inherit;cursor:pointer}
+
+/* header + nav */
+header{padding:30px 0 0}
+header h1{font-size:32px;letter-spacing:-.01em}
+header .sub{color:var(--muted);margin-top:4px}
+nav{display:flex;gap:4px;margin-top:22px;border-bottom:1px solid var(--line)}
+nav a{padding:10px 16px;text-decoration:none;color:var(--muted);font-weight:600;border-bottom:3px solid transparent;margin-bottom:-1px}
+nav a:hover{color:var(--ink)}
+nav a.on{color:var(--accent);border-bottom-color:var(--accent)}
+section.view{display:none;padding:28px 0 50px}
+section.view.on{display:block}
+
+/* about */
+.about{max-width:760px}
+.about h2{font-size:26px;margin-bottom:10px}
+.about h3{font-size:19px;margin:30px 0 8px}
+.about p{margin:0 0 12px;color:#30363d}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0 6px}
+@media(max-width:760px){.steps{grid-template-columns:1fr}}
+.step{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.step b{display:block;font-family:"Source Serif 4",serif;font-size:22px;color:var(--accent);line-height:1;margin-bottom:6px}
+.step p{font-size:14px;margin:0}
+.statuslist{display:grid;gap:10px;margin:10px 0}
+.statuslist div{display:flex;gap:12px;align-items:baseline;font-size:14.5px}
+.statuslist .badge{min-width:96px;text-align:center}
+.credits{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);font-size:14.5px;color:#30363d}
+.cta{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:600;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
+
+/* chips & badges */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 11px;font-size:13px;color:var(--ink)}
 .chip:hover{border-color:var(--accent)}
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-.chip .n{color:var(--muted);margin-left:4px;font-size:12px}
+#subChips .chip{font-size:12.5px;background:#fbfaf7}
+#subChips .chip.on{background:var(--accent);color:#fff}
+.chip .n{color:var(--muted);font-size:11.5px;margin-left:4px}
 .chip.on .n{color:#d6e6df}
-.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin:22px 0}
+.badge{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap;display:inline-block}
+.b-open{background:var(--open-soft);color:var(--open)} .b-request{background:var(--req-soft);color:var(--req)} .b-embargoed{background:var(--emb-soft);color:var(--emb)}
+.b-collab{background:#eef1f4;color:#3d4650} .b-both{background:var(--accent);color:#fff}
+.tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px;color:#fff;font-family:Inter,sans-serif}
+.tag.iv{background:var(--iv)} .tag.dv{background:var(--dv)}
+
+/* search */
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
 .search-grid{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;align-items:end}
 @media(max-width:760px){.search-grid{grid-template-columns:1fr}}
 .field label{display:block;font-weight:600;font-size:13px;margin-bottom:5px}
-.field label .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:4px;margin-right:6px;color:#fff}
-.tag{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:4px;color:#fff;font-family:Inter,sans-serif}
-.tag.iv{background:var(--iv)} .tag.dv{background:var(--dv)}
-.cols.one{grid-template-columns:1fr}
+.field label .tag{margin-right:6px}
 .combo{position:relative}
 .combo input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
 .combo input:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
@@ -48,37 +78,27 @@ header p.lead{max-width:760px;color:var(--muted);margin:8px 0 0;font-size:16px}
 .sugg div{padding:7px 12px;cursor:pointer;font-size:14px;display:flex;justify-content:space-between;gap:10px}
 .sugg div:hover,.sugg div.act{background:var(--accent-soft)}
 .sugg small{color:var(--muted);white-space:nowrap}
-button{font:inherit;cursor:pointer}
-.btn{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:600}
-.btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--line)}
 .hint{color:var(--muted);font-size:13px;margin-top:10px}
+.subhead{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:16px 0 6px}
 .filters{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;align-items:center;font-size:13px}
 .filters select{font:inherit;padding:5px 8px;border-radius:6px;border:1px solid var(--line);background:#fff}
-.themes{margin-top:16px}
-.themes .label{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:6px}
-.summary{margin:6px 0 14px;color:var(--muted)}
+.summary{margin:20px 0 12px;color:var(--muted)}
 .summary b{color:var(--ink)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;margin-bottom:16px}
+.empty{color:var(--muted);text-align:center;padding:30px 0}
+
+/* result cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px}
 .card.match{border-left:4px solid var(--accent)}
 .card-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
-.card h3{font-size:20px;line-height:1.3}
+.card h3{font-size:19px;line-height:1.3}
 .card .proj{color:var(--muted);font-size:13px;margin-top:3px}
 .badges{display:flex;gap:6px;flex-wrap:wrap}
-.badge{font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
-.b-open{background:var(--open-soft);color:var(--open)} .b-request{background:var(--req-soft);color:var(--req)} .b-embargoed{background:var(--emb-soft);color:var(--emb)}
-.b-collab{background:#eef1f4;color:#3d4650}
-.b-both{background:var(--accent);color:#fff}
-.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px 20px;margin:14px 0 4px;font-size:13.5px}
-.meta .k{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
-.tbc{color:var(--muted);font-style:italic}
-.ccy{display:flex;flex-wrap:wrap;gap:4px;margin-top:10px}
-.ccy span{font-size:12px;background:#f0ede6;border-radius:4px;padding:2px 7px}
-.topics{font-size:14px;margin-top:10px}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.cols.one{grid-template-columns:1fr}
 @media(max-width:760px){.cols{grid-template-columns:1fr}}
 .col h4{margin:0 0 8px;font-size:13px;display:flex;align-items:center;gap:6px}
 .col.iv h4{color:var(--iv)} .col.dv h4{color:var(--dv)}
-.q{border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-bottom:7px;font-size:14px}
+.q{border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin-bottom:7px;font-size:14px;background:#fff}
 .col.iv .q{background:var(--iv-soft);border-color:transparent}
 .col.dv .q{background:var(--dv-soft);border-color:transparent}
 .q .v{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--muted);margin-right:6px}
@@ -89,18 +109,33 @@ button{font:inherit;cursor:pointer}
 .q .cts{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}
 .q .cts span{font-size:11px;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:4px;padding:0 6px;color:#4a525b}
 .none{color:var(--muted);font-size:13px;font-style:italic}
+.cardfoot{margin-top:12px;font-size:13.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted)}
+.linkbtn{background:none;border:0;color:var(--accent);font-weight:600;padding:0}
+
+/* survey list */
+.slist{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.srow{display:grid;grid-template-columns:1fr 170px 90px 110px 24px;gap:14px;align-items:center;padding:14px 18px;border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;width:100%;text-align:left;color:inherit}
+.srow:hover{background:#fbfaf7}
+.srow .t{font-weight:600}
+.srow .p{font-size:13px;color:var(--muted)}
+.srow .c{font-size:13.5px}
+.srow .arrow{color:var(--muted);transition:transform .15s;font-size:18px}
+.srow[aria-expanded="true"] .arrow{transform:rotate(90deg)}
+.shead{display:grid;grid-template-columns:1fr 170px 90px 110px 24px;gap:14px;padding:10px 18px;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:#fbfaf7}
+@media(max-width:760px){.srow,.shead{grid-template-columns:1fr auto}.srow .c,.shead .hc,.shead .hy,.shead .ha,.shead .hx{display:none}}
+.detail{padding:4px 18px 22px;border-top:1px dashed var(--line);background:#fdfcfa}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 20px;margin:14px 0;font-size:13.5px}
+.k{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
+.tbc{color:var(--muted);font-style:italic}
+.ccy{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.ccy span{font-size:12px;background:#f0ede6;border-radius:4px;padding:2px 7px}
+.topics{font-size:14px;margin-top:12px}
 .contact{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13.5px}
 @media(max-width:760px){.contact{grid-template-columns:1fr}}
-.contact .k{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
-.allq{margin-top:14px}
+.allq{margin-top:16px}
 .allq > summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--accent)}
-.allq h5{margin:14px 0 6px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.howto{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:34px 0 10px}
-.howto .panel{margin:0}
-.howto h3{font-size:18px;margin-bottom:8px}
-.howto p,.howto li{font-size:14px;color:#3a3f45}
-.howto ul{padding-left:18px;margin:6px 0}
-footer{color:var(--muted);font-size:13px;padding:24px 0 50px}
+.allq h5{margin:14px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+footer{color:var(--muted);font-size:13px;padding:14px 0 40px;border-top:1px solid var(--line)}
 .err{background:#fde8e8;color:#8a1f1f;padding:12px;border-radius:8px}
 </style>
 </head>
@@ -108,74 +143,95 @@ footer{color:var(--muted);font-size:13px;padding:24px 0 50px}
 <div class="wrap">
   <header>
     <h1>Survey Finder</h1>
-    <p class="lead">Questionnaires and codebooks from our research projects, in one searchable place. Enter the independent and dependent variables you need and see which surveys measure both, then contact the owners to use the data or to collaborate. Only questionnaires are listed here; the data always stays with its owners.</p>
-    <div class="stats" id="stats"></div>
-    <div class="countries">
-      <div class="label">Countries covered — click to filter</div>
-      <div class="chips" id="countryChips"></div>
-    </div>
+    <div class="sub">A collaborative atlas of survey questionnaires from our research projects</div>
+    <nav>
+      <a href="#about" data-view="about">About</a>
+      <a href="#search" data-view="search">Search</a>
+      <a href="#surveys" data-view="surveys">Surveys</a>
+    </nav>
   </header>
 
-  <section class="panel" aria-label="Search">
-    <div class="search-grid">
-      <div class="field">
-        <label for="iv"><span class="tag iv">IV</span>Independent variable</label>
-        <div class="combo"><input id="iv" autocomplete="off" placeholder="e.g. Attitudes towards gender equality, sexism, education"><div class="sugg" id="ivSugg"></div></div>
+  <!-- ================= ABOUT ================= -->
+  <section class="view" id="view-about">
+    <div class="about">
+      <h2>Has someone already asked this?</h2>
+      <p>Many of us run surveys within our research projects, and most of them include far more questions than we ever have time to analyse. At the same time, many researchers, especially PhD students, have research questions but no funding to field their own survey.</p>
+      <p>Survey Finder brings the questionnaires of these project surveys together in one searchable place. Its aim is simple: to let you find out whether someone in our network has already collected the data you need, and to make it easy to get in touch to use it or to collaborate.</p>
+
+      <h3>How it works</h3>
+      <div class="steps">
+        <div class="step"><b>1</b><p><strong>Search</strong> for the independent and dependent variables you need, by category, by subcategory or with your own words in English or Spanish.</p></div>
+        <div class="step"><b>2</b><p><strong>See</strong> which surveys measure both, with the exact question wording and response scales.</p></div>
+        <div class="step"><b>3</b><p><strong>Contact</strong> the owner to ask for permission to use the data, or to propose a collaboration.</p></div>
       </div>
-      <div class="field">
-        <label for="dv"><span class="tag dv">DV</span>Dependent variable</label>
-        <div class="combo"><input id="dv" autocomplete="off" placeholder="e.g. Vote choice, trust in the EU, AI attitudes"><div class="sugg" id="dvSugg"></div></div>
+
+      <h3>Only questionnaires, never data</h3>
+      <p>The site lists questionnaires and codebooks only. The data always stays with the researcher or project that collected it. Each owner decides who can use it, how it should be cited and whether they want to collaborate. Every survey shows one of three access statuses:</p>
+      <div class="statuslist">
+        <div><span class="badge b-open">Open</span><span>The data can be downloaded from the link provided. Cite it as the owner indicates.</span></div>
+        <div><span class="badge b-request">On request</span><span>Write to the contact person to ask for permission to use the data.</span></div>
+        <div><span class="badge b-embargoed">Embargoed</span><span>The data is not available yet, but you can get in touch about collaborating.</span></div>
       </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn" id="go">Search</button>
-        <button class="btn ghost" id="clear">Clear</button>
-      </div>
-    </div>
-    <div class="hint">Pick a theme or concept from the suggestions, or type any word (English or Spanish). You can fill in just one box to see every survey that measures it.</div>
-    <div class="themes">
-      <div class="label">Browse by theme</div>
-      <div class="chips" id="themeChips"></div>
-    </div>
-    <div class="filters">
-      <label>Access status
-        <select id="fStatus"><option value="">All</option><option value="open">Open</option><option value="request">On request</option><option value="embargoed">Embargoed</option></select>
-      </label>
-      <label>Country
-        <select id="fCountry"><option value="">All countries</option></select>
-      </label>
+      <p>Owners can also mark their survey as <em>open to collaboration</em>, whatever its access status.</p>
+
+      <h3>How to cite</h3>
+      <p>Each survey shows the reference its owners want cited: a data paper, the first publication using the data, or a DOI. Owners who don't have one yet can get a free DOI by depositing their questionnaire on <a href="https://zenodo.org">Zenodo</a>.</p>
+
+      <h3>Add your survey</h3>
+      <p>Fill in the contribution form and attach your questionnaire or codebook (PDF, Word, Excel, or SPSS/Stata files with labels). We take care of adding it to the site. You decide the access status, how your data should be cited, and whether the full questionnaire can be downloaded.</p>
+
+      <div class="cta"><a class="btn" href="#search">Start searching</a><a class="btn ghost" href="#surveys">Browse all surveys</a></div>
+
+      <div class="credits">Survey Finder is created and maintained by <a href="https://sites.google.com/view/bcaihuelas/">Berta Caihuelas Navajas</a> and <a href="https://sites.google.com/view/alejandro-tirado/home">Alejandro Tirado Castro</a>.</div>
     </div>
   </section>
 
-  <div class="summary" id="summary"></div>
-  <div id="results"></div>
+  <!-- ================= SEARCH ================= -->
+  <section class="view" id="view-search">
+    <div class="panel">
+      <div class="search-grid">
+        <div class="field">
+          <label for="iv"><span class="tag iv">IV</span>Independent variable</label>
+          <div class="combo"><input id="iv" autocomplete="off" placeholder="e.g. Attitudes towards gender equality, education"><div class="sugg" id="ivSugg"></div></div>
+        </div>
+        <div class="field">
+          <label for="dv"><span class="tag dv">DV</span>Dependent variable</label>
+          <div class="combo"><input id="dv" autocomplete="off" placeholder="e.g. Vote choice, trust in the EU"><div class="sugg" id="dvSugg"></div></div>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn" id="go">Search</button>
+          <button class="btn ghost" id="clear">Clear</button>
+        </div>
+      </div>
+      <div class="hint">Pick a category or subcategory from the suggestions, or type any word. You can fill in just one box.</div>
+      <div class="subhead">Or browse by category</div>
+      <div class="chips" id="themeChips"></div>
+      <div id="subWrap" style="display:none"><div class="subhead" id="subLabel"></div><div class="chips" id="subChips"></div></div>
+      <div class="filters">
+        <label>Access status
+          <select id="fStatus"><option value="">All</option><option value="open">Open</option><option value="request">On request</option><option value="embargoed">Embargoed</option></select>
+        </label>
+        <label>Country
+          <select id="fCountry"><option value="">All countries</option></select>
+        </label>
+      </div>
+    </div>
+    <div class="summary" id="summary"></div>
+    <div id="results"></div>
+  </section>
 
-  <div class="howto">
-    <div class="panel">
-      <h3>Access statuses</h3>
-      <ul>
-        <li><b>Open</b> — the data can be downloaded from the link on the card. Cite it as the owner indicates.</li>
-        <li><b>On request</b> — write to the contact person to ask for permission to use the data.</li>
-        <li><b>Embargoed</b> — the data is not available yet, but you can get in touch about collaborating.</li>
-      </ul>
-      <p>"Open to collaboration" is shown separately: owners can welcome co-authors whatever the access status.</p>
-    </div>
-    <div class="panel">
-      <h3>Add your survey</h3>
-      <p>Fill in the contribution form and attach the questionnaire or codebook (PDF, Word, Excel, or SPSS/Stata files with labels). Only the questionnaire is published, never the data.</p>
-      <p>You decide the access status, how your data should be cited, and whether the full questionnaire can be downloaded from this site.</p>
-    </div>
-    <div class="panel">
-      <h3>No citation yet?</h3>
-      <p>If you don't have a data paper or a first publication to cite, you can get a free DOI by depositing your questionnaire on <a href="https://zenodo.org">Zenodo</a>. It takes about ten minutes and the DOI belongs to you.</p>
-    </div>
-  </div>
+  <!-- ================= SURVEYS ================= -->
+  <section class="view" id="view-surveys">
+    <div class="summary" id="slistSummary" style="margin-top:0"></div>
+    <div class="slist" id="slist"></div>
+  </section>
 
-  <footer>Survey Finder is maintained by volunteers from the Young Researchers in Gender and Social Sciences network. Questionnaire content belongs to each project.</footer>
+  <footer>Questionnaire content belongs to each project. Survey Finder only lists questionnaires; the data stays with its owners.</footer>
 </div>
 
 <script src="data/preview-data.js"></script>
 <script>
-// ---------- tiny CSV parser (RFC 4180, handles quotes & newlines) ----------
+// ---------- tiny CSV parser (RFC 4180) ----------
 function parseCSV(text){
   text=text.replace(/^﻿/,'');
   const rows=[];let row=[],f='',q=false;
@@ -198,28 +254,38 @@ const split=s=>(s||'').split(';').map(x=>x.trim()).filter(Boolean);
 const TBC=v=>!v||/^to confirm$/i.test(v);
 const show=v=>TBC(v)?'<span class="tbc">To confirm</span>':esc(v);
 
-let S=[],C=[],T=[],V=[],cById={},tById={};
-const state={iv:null,dv:null,status:'',country:''};
-
+let S=[],C=[],T=[],V=[],cById={},tById={},sById={};
+const state={iv:null,dv:null,status:'',country:'',open:null,browse:null};
 const NAMES=['surveys','concepts','themes','variables'];
-// Online (GitHub Pages) the CSVs are read directly. When the file is opened from disk,
-// browsers block that, so data/preview-data.js (a copy of the CSVs) is used instead.
+// Online the CSVs are read directly; opened from disk, data/preview-data.js (a copy) is used.
 Promise.all(NAMES.map(n=>fetch('data/'+n+'.csv').then(r=>{if(!r.ok)throw new Error(n);return r.text();})))
 .catch(e=>{ if(window.PREVIEW_DATA) return NAMES.map(n=>window.PREVIEW_DATA[n]); throw e; })
 .then(([s,c,t,v])=>{
   S=parseCSV(s);C=parseCSV(c);T=parseCSV(t);V=parseCSV(v);
   C.forEach(x=>{x.themesArr=split(x.themes);x.syn=split(x.synonyms);cById[x.concept_id]=x;});
   T.forEach(x=>tById[x.theme_id]=x);
-  V.forEach(x=>{x.cArr=split(x.concepts);x.text=norm([x.variable,x.question_en,x.question_original].join(' '));});
-  S.forEach(x=>{x.cArr=split(x.countries);});
+  V.forEach(x=>{x.cArr=split(x.concepts).filter(c=>cById[c]);x.text=norm([x.variable,x.question_en,x.question_original].join(' '));});
+  S.forEach(x=>{x.cArr=split(x.countries);sById[x.id]=x;});
+  // only show subcategories and categories that have questions
+  const usedC=new Set(V.flatMap(v=>v.cArr));
+  C=C.filter(c=>usedC.has(c.concept_id));
+  T=T.filter(t=>C.some(c=>c.themesArr.includes(t.theme_id)));
   init();
-}).catch(e=>{document.getElementById('results').innerHTML='<div class="err">Could not load the data files ('+esc(e.message)+'). If you opened index.html directly from your disk, open it through the website or a local server instead.</div>';});
+}).catch(e=>{document.getElementById('results').innerHTML='<div class="err">Could not load the data files ('+esc(e.message)+').</div>';});
+
+// ---------- views ----------
+function route(){
+  const h=(location.hash||'#about').slice(1);
+  const v=['about','search','surveys'].includes(h)?h:'about';
+  document.querySelectorAll('section.view').forEach(s=>s.classList.toggle('on',s.id==='view-'+v));
+  document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.view===v));
+}
+window.addEventListener('hashchange',()=>{route();window.scrollTo(0,0);});
 
 // ---------- query resolution ----------
-// A query is {kind:'theme'|'concept'|'text', id/text, label}
 function resolve(q){
   if(!q) return null;
-  if(q.kind==='theme'){ const ids=C.filter(c=>c.themesArr.includes(q.id)).map(c=>c.concept_id); return {concepts:new Set(ids),text:null}; }
+  if(q.kind==='theme') return {concepts:new Set(C.filter(c=>c.themesArr.includes(q.id)).map(c=>c.concept_id)),text:null};
   if(q.kind==='concept') return {concepts:new Set([q.id]),text:null};
   const t=norm(q.text).trim(); if(!t) return null;
   const ids=new Set();
@@ -230,19 +296,19 @@ function resolve(q){
   T.forEach(th=>{ if(norm(th.theme_label).includes(t)) C.filter(c=>c.themesArr.includes(th.theme_id)).forEach(c=>ids.add(c.concept_id)); });
   return {concepts:ids,text:t};
 }
-function matchVars(res,surveyId){
+function matchVars(res,sid){
   if(!res) return [];
   const toks=res.text?res.text.split(/\s+/).filter(w=>w.length>2):[];
-  return V.filter(v=>v.survey_id===surveyId&&(v.cArr.some(c=>res.concepts.has(c))||(toks.length&&toks.every(w=>v.text.includes(w)))));
+  return V.filter(v=>v.survey_id===sid&&(v.cArr.some(c=>res.concepts.has(c))||(toks.length&&toks.every(w=>v.text.includes(w)))));
 }
 
 // ---------- suggestions ----------
 function suggestions(text){
   const t=norm(text).trim(); const out=[];
-  T.forEach(th=>{ if(!t||norm(th.theme_label).includes(t)) out.push({kind:'theme',id:th.theme_id,label:th.theme_label,note:'theme'}); });
+  T.forEach(th=>{ if(!t||norm(th.theme_label).includes(t)) out.push({kind:'theme',id:th.theme_id,label:th.theme_label,note:'category'}); });
   C.forEach(c=>{
-    const hit=!t||norm(c.concept_label).includes(t)||c.syn.some(s=>norm(s).includes(t));
-    if(hit){ const n=new Set(V.filter(v=>v.cArr.includes(c.concept_id)).map(v=>v.survey_id)).size;
+    if(!t||norm(c.concept_label).includes(t)||c.syn.some(s=>norm(s).includes(t))){
+      const n=new Set(V.filter(v=>v.cArr.includes(c.concept_id)).map(v=>v.survey_id)).size;
       out.push({kind:'concept',id:c.concept_id,label:c.concept_label,note:n+' survey'+(n===1?'':'s')}); }
   });
   if(t) out.push({kind:'text',text:text.trim(),label:'Search the wording for “'+text.trim()+'”',note:'free text'});
@@ -255,14 +321,14 @@ function setupCombo(inputId,suggId,key){
     box.innerHTML=items.map((it,i)=>`<div data-i="${i}"><span>${esc(it.label)}</span><small>${esc(it.note)}</small></div>`).join('');
     box.classList.toggle('show',items.length>0);
   }
-  function pick(it){ state[key]=it; inp.value=it.kind==='text'?it.text:it.label; box.classList.remove('show'); run(); }
+  function pick(it){ state[key]=it; inp.value=it.kind==='text'?it.text:it.label; box.classList.remove('show'); runSearch(); }
   inp.addEventListener('focus',render);
   inp.addEventListener('input',()=>{state[key]=null;render();});
   inp.addEventListener('keydown',e=>{
     const els=box.querySelectorAll('div');
     if(e.key==='ArrowDown'){act=Math.min(act+1,els.length-1);}
     else if(e.key==='ArrowUp'){act=Math.max(act-1,0);}
-    else if(e.key==='Enter'){ e.preventDefault(); if(act>=0) pick(items[act]); else { const v=inp.value.trim(); state[key]=v?{kind:'text',text:v,label:v}:null; box.classList.remove('show'); run(); } return; }
+    else if(e.key==='Enter'){ e.preventDefault(); if(act>=0) pick(items[act]); else { const v=inp.value.trim(); state[key]=v?{kind:'text',text:v,label:v}:null; box.classList.remove('show'); runSearch(); } return; }
     else if(e.key==='Escape'){box.classList.remove('show');return;}
     else return;
     e.preventDefault(); els.forEach((el,i)=>el.classList.toggle('act',i===act)); if(els[act]) els[act].scrollIntoView({block:'nearest'});
@@ -271,93 +337,119 @@ function setupCombo(inputId,suggId,key){
   inp.addEventListener('blur',()=>setTimeout(()=>box.classList.remove('show'),120));
 }
 
-// ---------- page ----------
-function init(){
-  const countries={}; S.forEach(s=>s.cArr.forEach(c=>countries[c]=(countries[c]||0)+1));
-  const clist=Object.keys(countries).sort((a,b)=>countries[b]-countries[a]||a.localeCompare(b));
-  document.getElementById('stats').innerHTML=
-    `<div class="stat"><b>${S.length}</b><span>surveys</span></div><div class="stat"><b>${V.length}</b><span>questions / batteries indexed</span></div><div class="stat"><b>${clist.length}</b><span>countries</span></div><div class="stat"><b>${C.length}</b><span>concepts in ${T.length} themes</span></div>`;
-  const cc=document.getElementById('countryChips');
-  cc.innerHTML=clist.map(c=>`<button class="chip" data-c="${esc(c)}">${esc(c)}<span class="n">${countries[c]}</span></button>`).join('');
-  cc.addEventListener('click',e=>{const b=e.target.closest('.chip'); if(!b)return; state.country=state.country===b.dataset.c?'':b.dataset.c; document.getElementById('fCountry').value=state.country; run();});
-  const fc=document.getElementById('fCountry'); fc.innerHTML+=clist.slice().sort().map(c=>`<option>${esc(c)}</option>`).join('');
-  fc.addEventListener('change',()=>{state.country=fc.value;run();});
-  document.getElementById('fStatus').addEventListener('change',e=>{state.status=e.target.value;run();});
-  const tc=document.getElementById('themeChips');
-  tc.innerHTML=T.map(t=>`<button class="chip" data-t="${t.theme_id}">${esc(t.theme_label)}</button>`).join('');
-  tc.addEventListener('click',e=>{const b=e.target.closest('.chip'); if(!b)return; const th=tById[b.dataset.t];
-    state.iv={kind:'theme',id:th.theme_id,label:th.theme_label}; state.dv=null;
-    document.getElementById('iv').value=th.theme_label; document.getElementById('dv').value=''; run();});
-  setupCombo('iv','ivSugg','iv'); setupCombo('dv','dvSugg','dv');
-  document.getElementById('go').onclick=()=>{
-    ['iv','dv'].forEach(k=>{ const v=document.getElementById(k).value.trim(); if(!v) state[k]=null; else if(!state[k]) state[k]={kind:'text',text:v,label:v}; });
-    run();};
-  document.getElementById('clear').onclick=()=>{state.iv=state.dv=null;state.status='';state.country='';
-    ['iv','dv'].forEach(k=>document.getElementById(k).value=''); document.getElementById('fStatus').value=''; fc.value=''; run();};
-  run();
-}
-
+// ---------- shared bits ----------
 const STATUS={open:['Open','b-open'],request:['On request','b-request'],embargoed:['Embargoed','b-embargoed']};
+const statusBadge=s=>{const st=STATUS[s.status]||[s.status,'b-collab'];return `<span class="badge ${st[1]}">${st[0]}</span>`;};
+const collabBadge=s=>(!TBC(s.open_to_collaboration)&&/^y/i.test(s.open_to_collaboration))?'<span class="badge b-collab">Open to collaboration</span>':'';
+const countryShort=s=>s.cArr.length>3?s.cArr.length+' countries':s.cArr.join(', ');
+const yearOf=s=>s.year||((s.field_dates||'').match(/\b(?:19|20)\d{2}\b/)||[''])[0];
 function qHTML(v,hl){
-  const cts=v.cArr.map(c=>cById[c]).filter(Boolean).map(c=>`<span${hl&&hl.has(c.concept_id)?' style="font-weight:600"':''}>${esc(c.concept_label)}</span>`).join('');
+  const cts=v.cArr.map(c=>cById[c]).map(c=>`<span${hl&&hl.has(c.concept_id)?' style="font-weight:600"':''}>${esc(c.concept_label)}</span>`).join('');
   return `<div class="q"><span class="v">${esc(v.variable)}</span>${esc(v.question_en)}
     <details><summary>Original wording &amp; scale</summary><div class="orig">${esc(v.question_original)}</div>${v.response_scale?`<div class="scale">Scale: ${esc(v.response_scale)}</div>`:''}</details>
     <div class="cts">${cts}</div></div>`;
 }
-function allQuestions(s){
-  const vs=V.filter(v=>v.survey_id===s.id);
-  const groups=T.map(t=>({t,vs:vs.filter(v=>v.cArr.some(c=>(cById[c]||{themesArr:[]}).themesArr[0]===t.theme_id))})).filter(g=>g.vs.length);
-  return `<details class="allq"><summary>All ${vs.length} questions in this survey, by theme</summary>${groups.map(g=>`<h5>${esc(g.t.theme_label)}</h5>${g.vs.map(v=>qHTML(v)).join('')}`).join('')}</details>`;
-}
-function card(s,ivm,dvm,res){
-  const st=STATUS[s.status]||[s.status,'b-collab'];
+
+// ---------- search ----------
+function resultCard(s,ivm,dvm,res){
   const both=state.iv&&state.dv&&ivm.length&&dvm.length;
-  const collab=TBC(s.open_to_collaboration)?'':(/^y/i.test(s.open_to_collaboration)?'<span class="badge b-collab">Open to collaboration</span>':'');
-  const dataLine=s.status==='open'&&s.data_link?`<a href="${esc(s.data_link)}">${esc(s.data_link)}</a>`:(s.status==='embargoed'?(s.embargo_until?'Embargoed until '+esc(s.embargo_until):'Embargoed — contact the owner'):'Available on request from the contact person');
-  const qline=s.questionnaire_file?`<a href="${esc(s.questionnaire_file)}">Download questionnaire</a>`:'Full questionnaire available from the contact person';
-  let cols='';
-  if(state.iv||state.dv){
-    const col=(cls,lab,q,m)=>q?`<div class="col ${cls}"><h4><span class="tag ${cls}">${cls.toUpperCase()}</span>${esc(lab)} — ${m.length} match${m.length===1?'':'es'}</h4>${m.length?m.map(v=>qHTML(v,res[cls]&&res[cls].concepts)).join(''):'<div class="none">No matching questions in this survey.</div>'}</div>`:'';
-    cols=`<div class="cols${state.iv&&state.dv?'':' one'}">${col('iv',state.iv&&state.iv.label,state.iv,ivm)}${col('dv',state.dv&&state.dv.label,state.dv,dvm)}</div>`;
-  }
+  const col=(cls,q,m)=>q?`<div class="col ${cls}"><h4><span class="tag ${cls}">${cls.toUpperCase()}</span>${esc(q.label)} — ${m.length} match${m.length===1?'':'es'}</h4>${m.length?m.map(v=>qHTML(v,res[cls]&&res[cls].concepts)).join(''):'<div class="none">No matching questions in this survey.</div>'}</div>`:'';
   return `<article class="card${both?' match':''}">
-    <div class="card-head"><div><h3>${esc(s.title)}</h3><div class="proj">${esc(s.project)}</div></div>
-      <div class="badges">${both?'<span class="badge b-both">Has both IV and DV</span>':''}<span class="badge ${st[1]}">${st[0]}</span>${collab}</div></div>
-    <div class="ccy">${s.cArr.map(c=>`<span>${esc(c)}</span>`).join('')}</div>
+    <div class="card-head"><div><h3>${esc(s.title)}</h3><div class="proj">${esc(countryShort(s))}${yearOf(s)?' · '+esc(yearOf(s)):''} · ${esc(s.project)}</div></div>
+      <div class="badges">${both?'<span class="badge b-both">Has both IV and DV</span>':''}${statusBadge(s)}${collabBadge(s)}</div></div>
+    <div class="cols${state.iv&&state.dv?'':' one'}">${col('iv',state.iv,ivm)}${col('dv',state.dv,dvm)}</div>
+    <div class="cardfoot"><span>Contact: ${show(s.contact_name)}</span><button class="linkbtn" data-open="${esc(s.id)}">Full survey details →</button></div>
+  </article>`;
+}
+function renderSub(){
+  const w=document.getElementById('subWrap');
+  const inBrowse=state.browse&&!state.dv&&state.iv&&((state.iv.kind==='theme'&&state.iv.id===state.browse)||(state.iv.kind==='concept'&&cById[state.iv.id].themesArr.includes(state.browse)));
+  if(!inBrowse){state.browse=null;w.style.display='none';return;}
+  const th=tById[state.browse];
+  document.getElementById('subLabel').textContent='Subcategories of '+th.theme_label;
+  document.getElementById('subChips').innerHTML=C.filter(c=>c.themesArr.includes(th.theme_id)).map(c=>{
+    const n=new Set(V.filter(v=>v.cArr.includes(c.concept_id)).map(v=>v.survey_id)).size;
+    return `<button class="chip${state.iv.kind==='concept'&&state.iv.id===c.concept_id?' on':''}" data-c="${c.concept_id}">${esc(c.concept_label)}<span class="n">${n}</span></button>`;}).join('');
+  w.style.display='block';
+}
+function runSearch(){
+  renderSub();
+  document.querySelectorAll('#themeChips .chip').forEach(b=>b.classList.toggle('on',!!(state.browse===b.dataset.t)));
+  const out=document.getElementById('results'), sum=document.getElementById('summary');
+  if(!state.iv&&!state.dv){ sum.innerHTML=''; out.innerHTML='<div class="empty">Enter a variable above, or pick a category, to see which surveys measure it.</div>'; return; }
+  const res={iv:resolve(state.iv),dv:resolve(state.dv)};
+  let list=S.filter(s=>(!state.status||s.status===state.status)&&(!state.country||s.cArr.includes(state.country)))
+    .map(s=>({s,ivm:matchVars(res.iv,s.id),dvm:matchVars(res.dv,s.id)}));
+  const need=x=>(!state.iv||x.ivm.length)&&(!state.dv||x.dvm.length);
+  const full=list.filter(need).length;
+  list.sort((a,b)=>(need(b)-need(a))||((b.ivm.length+b.dvm.length)-(a.ivm.length+a.dvm.length)));
+  list=list.filter(x=>x.ivm.length||x.dvm.length);
+  sum.innerHTML=`<b>${full}</b> of ${S.length} surveys ${state.iv&&state.dv?'measure both':'measure this'}${state.country?' in '+esc(state.country):''}.`+(list.length>full?` ${list.length-full} more match only one of your variables and are shown below them.`:'');
+  out.innerHTML=list.length?list.map(x=>resultCard(x.s,x.ivm,x.dvm,res)).join(''):'<div class="empty">No survey matches yet. Try a broader category or another word.</div>';
+}
+
+// ---------- survey list ----------
+function detailHTML(s){
+  const vs=V.filter(v=>v.survey_id===s.id);
+  const groups=T.map(t=>({t,vs:vs.filter(v=>cById[v.cArr[0]]&&cById[v.cArr[0]].themesArr[0]===t.theme_id)})).filter(g=>g.vs.length);
+  const dataLine=s.status==='open'&&s.data_link?`Data: <a href="${esc(s.data_link)}">${esc(s.data_link)}</a>`:(s.status==='embargoed'?(s.embargo_until?'Embargoed until '+esc(s.embargo_until):'Data embargoed — contact the owner'):'Data available on request from the contact person');
+  const qline=s.questionnaire_file?`<a href="${esc(s.questionnaire_file)}">Download questionnaire</a>`:'Full questionnaire available from the contact person';
+  return `<div class="detail">
     <div class="meta">
+      <div><span class="k">Project</span>${esc(s.project)}</div>
       <div><span class="k">Fieldwork</span>${show(s.field_dates)}</div>
       <div><span class="k">Sample size</span>${show(s.sample_size)}</div>
       <div><span class="k">Population</span>${show(s.population)}</div>
       <div><span class="k">Mode</span>${show(s.mode)}</div>
       <div><span class="k">Weights</span>${show(s.weights)}</div>
       ${s.experiments?`<div><span class="k">Experiments</span>${esc(s.experiments)}</div>`:''}
+      <div><span class="k">Access</span>${statusBadge(s)} ${collabBadge(s)}</div>
     </div>
-    ${!(state.iv||state.dv)?`<div class="topics"><b>Main topics:</b> ${esc(s.topics)}</div>`:''}
-    ${cols}
+    <div><span class="k">Countries</span><div class="ccy">${s.cArr.map(c=>`<span>${esc(c)}</span>`).join('')}</div></div>
+    <div class="topics"><b>Main topics:</b> ${esc(s.topics)}</div>
     <div class="contact">
       <div><span class="k">Contact</span>${show(s.contact_name)}${s.contact_email?` · <a href="mailto:${esc(s.contact_email)}">${esc(s.contact_email)}</a>`:''}<br>${dataLine}<br>${qline}</div>
       <div><span class="k">How to cite</span>${show(s.citation)}</div>
     </div>
-    ${allQuestions(s)}
-  </article>`;
+    <details class="allq"><summary>See all ${vs.length} questions, by category</summary>${groups.map(g=>`<h5>${esc(g.t.theme_label)}</h5>${g.vs.map(v=>qHTML(v)).join('')}`).join('')}</details>
+  </div>`;
 }
-function run(){
-  document.querySelectorAll('#countryChips .chip').forEach(b=>b.classList.toggle('on',b.dataset.c===state.country));
-  document.querySelectorAll('#themeChips .chip').forEach(b=>b.classList.toggle('on',state.iv&&state.iv.kind==='theme'&&state.iv.id===b.dataset.t&&!state.dv));
-  const res={iv:resolve(state.iv),dv:resolve(state.dv)};
-  let list=S.filter(s=>(!state.status||s.status===state.status)&&(!state.country||s.cArr.includes(state.country)))
-    .map(s=>({s,ivm:matchVars(res.iv,s.id),dvm:matchVars(res.dv,s.id)}));
-  const active=state.iv||state.dv; let txt;
-  if(active){
-    const need=x=>(!state.iv||x.ivm.length)&&(!state.dv||x.dvm.length);
-    const full=list.filter(need).length;
-    list.sort((a,b)=>(need(b)-need(a))||((b.ivm.length+b.dvm.length)-(a.ivm.length+a.dvm.length)));
-    list=list.filter(x=>x.ivm.length||x.dvm.length);
-    const what=state.iv&&state.dv?'measure both':'measure this';
-    txt=`<b>${full}</b> of ${S.length} surveys ${what}${state.country?' in '+esc(state.country):''}.`+(list.length>full?` ${list.length-full} more match only one of your variables and are shown below them.`:'');
-  } else txt=`Showing all <b>${list.length}</b> surveys${state.country?' covering '+esc(state.country):''}. Search above to find specific variables.`;
-  document.getElementById('summary').innerHTML=txt;
-  document.getElementById('results').innerHTML=list.length?list.map(x=>card(x.s,x.ivm,x.dvm,res)).join(''):'<div class="panel">No survey matches yet. Try a broader theme, or another word.</div>';
+function renderList(){
+  const list=S.slice().sort((a,b)=>a.title.localeCompare(b.title));
+  document.getElementById('slistSummary').innerHTML=`<b style="color:var(--ink)">${S.length}</b> surveys · ${new Set(S.flatMap(s=>s.cArr)).size} countries · ${V.length} questions indexed. Click a survey to see its details.`;
+  document.getElementById('slist').innerHTML=`<div class="shead"><span>Survey</span><span class="hc">Coverage</span><span class="hy">Year</span><span class="ha">Access</span><span class="hx"></span></div>`+
+    list.map(s=>{const o=state.open===s.id;return `<button class="srow" data-s="${esc(s.id)}" aria-expanded="${o}">
+      <span><span class="t">${esc(s.title)}</span><br><span class="p">${esc(s.project)}</span></span>
+      <span class="c">${esc(countryShort(s))}</span><span class="c">${yearOf(s)?esc(yearOf(s)):'<span class="tbc">—</span>'}</span>
+      <span class="c">${statusBadge(s)}</span><span class="arrow">›</span></button>${o?detailHTML(s):''}`;}).join('');
+}
+function openSurvey(id){ state.open=id; renderList(); if(location.hash!=='#surveys') location.hash='#surveys'; setTimeout(()=>{const el=document.querySelector(`.srow[data-s="${id}"]`); if(el) el.scrollIntoView({behavior:'smooth',block:'start'});},60); }
+
+// ---------- init ----------
+function init(){
+  const fc=document.getElementById('fCountry');
+  fc.innerHTML+=[...new Set(S.flatMap(s=>s.cArr))].sort().map(c=>`<option>${esc(c)}</option>`).join('');
+  fc.addEventListener('change',()=>{state.country=fc.value;runSearch();});
+  document.getElementById('fStatus').addEventListener('change',e=>{state.status=e.target.value;runSearch();});
+  const tc=document.getElementById('themeChips');
+  tc.innerHTML=T.map(t=>`<button class="chip" data-t="${t.theme_id}">${esc(t.theme_label)}</button>`).join('');
+  tc.addEventListener('click',e=>{const b=e.target.closest('.chip'); if(!b)return; const th=tById[b.dataset.t];
+    state.iv={kind:'theme',id:th.theme_id,label:th.theme_label}; state.dv=null; state.browse=th.theme_id;
+    document.getElementById('iv').value=th.theme_label; document.getElementById('dv').value=''; runSearch();});
+  document.getElementById('subChips').addEventListener('click',e=>{const b=e.target.closest('.chip'); if(!b)return; const c=cById[b.dataset.c];
+    state.iv=state.iv&&state.iv.kind==='concept'&&state.iv.id===c.concept_id?{kind:'theme',id:state.browse,label:tById[state.browse].theme_label}:{kind:'concept',id:c.concept_id,label:c.concept_label};
+    document.getElementById('iv').value=state.iv.label; runSearch();});
+  setupCombo('iv','ivSugg','iv'); setupCombo('dv','dvSugg','dv');
+  document.getElementById('go').onclick=()=>{
+    ['iv','dv'].forEach(k=>{ const v=document.getElementById(k).value.trim(); if(!v) state[k]=null; else if(!state[k]) state[k]={kind:'text',text:v,label:v}; });
+    runSearch();};
+  document.getElementById('clear').onclick=()=>{state.iv=state.dv=null;state.status='';state.country='';
+    ['iv','dv'].forEach(k=>document.getElementById(k).value=''); document.getElementById('fStatus').value=''; fc.value=''; runSearch();};
+  document.getElementById('results').addEventListener('click',e=>{const b=e.target.closest('[data-open]'); if(b) openSurvey(b.dataset.open);});
+  document.getElementById('slist').addEventListener('click',e=>{
+    if(e.target.closest('.detail')) return;
+    const r=e.target.closest('.srow'); if(!r) return; state.open=state.open===r.dataset.s?null:r.dataset.s; renderList();});
+  route(); runSearch(); renderList();
 }
 </script>
 </body>

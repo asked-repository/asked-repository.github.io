@@ -10,93 +10,111 @@ OUT = sys.argv[1] if len(sys.argv) > 1 else "site/data"
 XLSX = sys.argv[2] if len(sys.argv) > 2 else "Codebook_UC3M (40dB) 05022026.xlsx"
 os.makedirs(OUT, exist_ok=True)
 
-# ---------------------------------------------------------------- themes
+# ---------------------------------------------------------------- themes (categories)
 THEMES = [
     ("sociodem", "Socio-demographics"),
     ("ses", "Socio-economic status"),
-    ("electoral", "Electoral behaviour"),
-    ("polatt", "Political attitudes & engagement"),
+    ("polbeh", "Political behaviour"),
+    ("polori", "Political orientations"),
     ("trust", "Trust"),
-    ("eu", "Attitudes towards the EU"),
-    ("gender", "Attitudes towards gender equality"),
-    ("sexgender", "Gender identity, sexuality & morality policy"),
-    ("media", "Media & social media"),
-    ("ai", "AI & digital technologies"),
-    ("personal", "Personal life, values & socialisation"),
-    ("design", "Design features (experiments, weights)"),
+    ("gender", "Gender attitudes"),
+    ("genid", "Gender identity, sexuality & bodily autonomy"),
+    ("europe", "Europe"),
+    ("media", "Media, digital & AI"),
+    ("policy", "Other policy preferences"),
+    ("values", "Personality & values"),
+    ("socialisation", "Socialisation"),
+    ("care", "Care & family life"),
+    ("leisure", "Leisure & everyday life"),
+    ("wellbeing", "Wellbeing"),
 ]
 
-# id | label | themes | search synonyms (EN / ES / CA)
+# Subcategories: id | label | categories | search synonyms (EN / ES / CA)
+# Subcategories with no questions yet are kept here but hidden on the site.
 CONCEPTS = [
-    ("gender", "Gender / sex", "sociodem", "gender; sex; man; woman; men; women; género; sexo; hombre; mujer; gènere"),
+    # Socio-demographics
+    ("gender", "Gender", "sociodem", "gender; sex; man; woman; men; women; género; sexo; hombre; mujer; gènere"),
     ("age", "Age", "sociodem", "age; cohort; generation; young; youth; edad; jóvenes; edat"),
-    ("marital", "Marital & relationship status", "sociodem;personal", "marital status; married; partner; couple; relationship; dating; single; estado civil; pareja"),
-    ("children", "Children & family", "sociodem", "children; kids; parenthood; parents; fertility; family; daughters; hijos; hijas; fills"),
-    ("siblings", "Siblings", "sociodem", "siblings; brothers; sisters; hermanos; germans"),
-    ("sexual_orientation", "Sexual orientation", "sociodem;sexgender", "sexual orientation; LGBT; gay; lesbian; bisexual; heterosexual; orientación sexual"),
-    ("ethnicity", "Ethnicity & migration background", "sociodem", "ethnicity; race; ethnic; migrant; immigrant; migration background; citizenship; country of birth; nationality; origen; inmigrante; nacionalidad"),
-    ("residence", "Place of residence (country, region, urban/rural)", "sociodem", "residence; region; rural; urban; city; territory; country; postcode; province; comunidad autónoma; provincia"),
-    ("religion", "Religion & religiosity", "sociodem;personal", "religion; religiosity; religious; church attendance; catholic; religión; religiosidad"),
+    ("family_household", "Family & household", "sociodem", "marital status; married; children; kids; household; family; estado civil; hijos; hijas; fills"),
+    ("residence", "Place of residence", "sociodem", "residence; region; rural; urban; city; territory; country; postcode; province; comunidad autónoma; provincia"),
+    ("migration", "Migration background", "sociodem", "ethnicity; race; ethnic; migrant; immigrant; migration background; citizenship; country of birth; nationality; origen; inmigrante; nacionalidad"),
+    ("religion", "Religion", "sociodem", "religion; religiosity; religious; church attendance; catholic; religión; religiosidad"),
+    ("sexual_orientation", "Sexual orientation", "sociodem", "sexual orientation; LGBT; gay; lesbian; bisexual; heterosexual; orientación sexual"),
+    # SES
     ("education", "Education", "ses", "education; educational attainment; schooling; degree; university; educación; estudios; nivel educativo"),
-    ("occupation", "Occupation / social class", "ses", "occupation; class; social class; ISCO; job; profession; ocupación; clase social"),
+    ("occupation", "Occupation & class", "ses", "occupation; class; social class; ISCO; job; profession; ocupación; clase social"),
     ("employment", "Employment status", "ses", "employment; unemployment; unemployed; labour market status; work status; retired; student; empleo; paro; situación laboral"),
     ("income", "Income", "ses", "income; household income; earnings; wealth; ingresos; renta; salario"),
-    ("social_origin", "Social origin (parents' occupation)", "ses", "social origin; parents occupation; father; mother; social mobility; class origin; origen social"),
-    ("subjective_economy", "Personal economic situation", "ses", "personal economic situation; household finances; egotropic; economic hardship; situación económica personal"),
-    ("vote_choice", "Vote choice / vote intention", "electoral", "vote choice; vote intention; party choice; recalled vote; voting behaviour; party vote; voto; intención de voto; recuerdo de voto"),
-    ("turnout", "Turnout / abstention", "electoral", "turnout; abstention; voted; electoral participation; participación electoral; abstención"),
-    ("ptv", "Party evaluations & propensity to vote", "electoral", "party like dislike; party thermometer; propensity to vote; PTV; party sympathy; affective polarization; polarisation; valoración de partidos"),
-    ("leader_eval", "Leader / candidate evaluations", "electoral", "leader; leaders; candidate; candidates; leader evaluation; likeability; valoración de líderes; candidatos"),
-    ("campaign", "Campaign exposure & mobilisation", "electoral", "campaign; electoral campaign; debates; party contact; canvassing; mobilisation; mobilization; campaña"),
-    ("gov_eval", "Government performance", "electoral", "government approval; government performance; retrospective; evaluación del gobierno"),
-    ("economic_perceptions", "National economic perceptions", "electoral", "economy; sociotropic; economic evaluation; inflation; prices; unemployment perceptions; economía; precios"),
-    ("left_right", "Ideology (left–right)", "polatt", "ideology; left right; left-right; self-placement; ideología; izquierda derecha"),
-    ("political_interest", "Political interest", "polatt", "political interest; interest in politics; interés por la política"),
-    ("efficacy", "Political efficacy", "polatt", "efficacy; external efficacy; political influence; voice; eficacia política"),
-    ("democracy_satisfaction", "Satisfaction with democracy", "polatt", "satisfaction with democracy; democratic satisfaction; satisfacción con la democracia"),
-    ("regime_preferences", "Regime preferences / support for democracy", "polatt", "regime preferences; democracy support; strong leader; technocracy; experts; direct democracy; authoritarianism; military rule; stealth democracy; populism"),
-    ("corruption", "Perceived corruption", "polatt", "corruption; corrupción"),
-    ("taxation", "Taxation & redistribution", "polatt", "tax; taxes; taxation; redistribution; progressive taxation; tax evasion; impuestos; redistribución"),
-    ("deservingness", "Deservingness / meritocracy", "polatt", "deservingness; meritocracy; deserve; fairness; merecimiento"),
-    ("climate", "Climate change & energy", "polatt", "climate change; environment; energy; renewables; cambio climático; energía; medio ambiente"),
-    ("incivility", "Political incivility, conflict & compromise", "polatt", "incivility; uncivil; political conflict; compromise; negative campaigning; polarization; crispación"),
-    ("political_violence", "Political violence", "polatt", "political violence; intimidation; violencia política"),
-    ("protest", "Protest & non-electoral participation", "polatt", "protest; demonstration; political participation; mobilisation; 8M; manifestación"),
-    ("trust_political", "Trust in national political institutions & actors", "trust", "political trust; institutional trust; trust in parliament; trust in government; trust politicians; distrust; confianza política; confianza en las instituciones"),
-    ("trust_eu", "Trust in the EU", "trust;eu", "EU trust; trust in the EU; EU distrust; trust European Commission; trust European Parliament; confianza en la UE"),
-    ("social_trust", "Social / interpersonal trust", "trust", "social trust; interpersonal trust; generalised trust; generalized trust; trust in people; confianza social"),
-    ("eu_integration", "EU integration & EU competences", "eu", "European integration; EU integration; EU competences; EU policy; federalism; Europeanisation; integración europea"),
-    ("eu_reform", "EU democratic reform", "eu", "EU reform; democratic deficit; Spitzenkandidat; transnational lists; EU referendum"),
-    ("eu_knowledge", "EU / political knowledge", "eu;polatt", "knowledge; political knowledge; EU knowledge; informed; conocimiento político"),
-    ("identity_attachment", "National & European identity / attachment", "eu", "identity; attachment; national identity; European identity; nationalism; identidad; nacionalismo"),
-    ("zero_sum", "Zero-sum perceptions", "eu", "zero-sum; zero sum; relative gains; winners and losers"),
-    ("gender_attitudes", "Gender attitudes & sexism", "gender", "gender attitudes; sexism; hostile sexism; benevolent sexism; modern sexism; gender roles; gender equality; machismo; actitudes de género; igualdad de género"),
-    ("gender_backlash", "Anti-feminism / gender backlash", "gender", "backlash; anti-feminism; antifeminism; gone too far; men disadvantaged; antifeminismo"),
-    ("feminism", "Feminism & the feminist movement", "gender", "feminism; feminist; feminist movement; women's movement; 8M; feminismo"),
+    ("subjective_economy", "Subjective economic situation", "ses", "personal economic situation; household finances; egotropic; economic hardship; situación económica personal"),
+    ("social_origin", "Social origin", "ses", "social origin; parents occupation; father; mother; social mobility; class origin; origen social"),
+    # Political behaviour
+    ("vote_choice", "Vote choice", "polbeh", "vote choice; vote intention; party choice; recalled vote; voting behaviour; party vote; far right vote; voto; intención de voto; recuerdo de voto"),
+    ("turnout", "Turnout", "polbeh", "turnout; abstention; voted; electoral participation; participación electoral; abstención"),
+    ("party_leader_eval", "Party & leader evaluations", "polbeh", "party like dislike; party thermometer; propensity to vote; PTV; party sympathy; affective polarization; leaders; candidates; leader evaluation; valoración de partidos; valoración de líderes"),
+    ("protest", "Protest & other participation", "polbeh", "protest; demonstration; political participation; non-electoral participation; online participation; mobilisation; 8M; manifestación"),
+    ("campaign", "Campaign exposure", "polbeh", "campaign; electoral campaign; debates; party contact; canvassing; mobilisation; campaña"),
+    ("gov_eval", "Government evaluation", "polbeh", "government approval; government performance; retrospective; evaluación del gobierno"),
+    ("economic_perceptions", "Economic perceptions", "polbeh", "economy; sociotropic; economic evaluation; economic voting; inflation; prices; unemployment perceptions; economía; precios"),
+    # Political orientations
+    ("left_right", "Ideology", "polori", "ideology; left right; left-right; self-placement; ideología; izquierda derecha"),
+    ("political_interest", "Interest & knowledge", "polori", "political interest; interest in politics; political knowledge; informed; interés por la política; conocimiento político"),
+    ("efficacy", "Efficacy", "polori", "efficacy; external efficacy; political influence; voice; eficacia política"),
+    ("democracy_support", "Support for democracy", "polori", "regime preferences; democracy support; strong leader; technocracy; experts; direct democracy; authoritarianism; military rule; stealth democracy; populism"),
+    ("democracy_satisfaction", "Satisfaction with democracy", "polori", "satisfaction with democracy; democratic satisfaction; satisfacción con la democracia"),
+    ("polarisation", "Polarisation & incivility", "polori", "polarisation; polarization; incivility; uncivil; political conflict; compromise; negative campaigning; crispación"),
+    ("political_violence", "Political violence", "polori", "political violence; intimidation; violencia política"),
+    # Trust
+    ("trust_national", "Trust in national institutions", "trust", "political trust; institutional trust; trust in parliament; trust in government; trust politicians; distrust; confianza política; confianza en las instituciones"),
+    ("trust_eu", "Trust in the EU", "trust;europe", "EU trust; trust in the EU; EU distrust; trust European Commission; trust European Parliament; confianza en la UE"),
+    ("social_trust", "Social trust", "trust", "social trust; interpersonal trust; generalised trust; generalized trust; trust in people; confianza social"),
+    ("corruption", "Perceived corruption", "trust", "corruption; corrupción"),
+    # Gender attitudes
+    ("gender_roles", "Gender roles", "gender", "gender roles; gender role attitudes; gender equality attitudes; traditional gender roles; male breadwinner; igualdad de género; roles de género"),
+    ("sexism", "Sexism (hostile, benevolent, modern)", "gender", "sexism; hostile sexism; benevolent sexism; modern sexism; ambivalent sexism; machismo; sexismo"),
+    ("feminism", "Feminism & anti-feminism", "gender", "feminism; feminist; feminist movement; anti-feminism; antifeminism; backlash; gone too far; men disadvantaged; feminismo; antifeminismo"),
     ("gender_policy", "Gender equality policies", "gender", "gender policy; gender quotas; quotas; parity; parental leave; equal pay; cuotas; paridad; permisos"),
     ("gbv", "Gender-based violence", "gender", "gender-based violence; GBV; violence against women; Istanbul Convention; sexual consent; violencia de género"),
-    ("women_representation", "Women in politics / candidate gender", "gender", "women in politics; women candidates; female politicians; political representation; candidate gender; mujeres en política"),
-    ("discrimination", "Perceived discrimination", "gender", "discrimination; unfair treatment; discriminación"),
-    ("traditional_values", "Traditional & authoritarian values", "personal;gender", "traditional values; family values; authoritarianism; child qualities; valores tradicionales"),
-    ("gender_identity", "Gender identity (masculinity / femininity)", "sexgender", "masculinity; femininity; gender identity; gender salience; masculinidad; feminidad"),
-    ("lgbtiq", "LGBTIQ+ & trans rights", "sexgender", "LGBT; LGBTIQ; trans; transgender; gender self-determination; same-sex adoption; trans law; ley trans"),
-    ("abortion", "Abortion", "sexgender", "abortion; reproductive rights; aborto"),
-    ("morality_policy", "Morality policy (surrogacy, sex work, euthanasia)", "sexgender", "morality policy; surrogacy; sex work; prostitution; euthanasia; gestación subrogada; trabajo sexual"),
-    ("news_media", "News & media use", "media", "news; media use; information sources; newspapers; television; radio; consumo de medios; noticias"),
-    ("social_media", "Social media & digital habits", "media", "social media; internet use; online; digital use; screen time; redes sociales; TikTok; Instagram; Twitter"),
-    ("influencers", "Influencers & content creators", "media", "influencers; streamers; content creators; YouTubers; parasocial; creadores de contenido"),
-    ("ai_attitudes", "Attitudes towards AI", "ai", "artificial intelligence; AI; AI attitudes; AI emotions; AI risks; inteligencia artificial; IA"),
-    ("ai_use", "Use of AI tools", "ai", "AI use; ChatGPT; generative AI; Copilot; Gemini; uso de IA"),
-    ("ai_governance", "AI in government & AI regulation", "ai", "AI regulation; algorithmic governance; AI in public administration; automated decision-making; regulación IA"),
-    ("digital_rights", "Digital technologies & digital rights", "ai", "digital rights; privacy; data protection; digitalisation; digitalization; technology trust; facial recognition; cybersecurity"),
-    ("life_satisfaction", "Life satisfaction & wellbeing", "personal", "life satisfaction; wellbeing; happiness; satisfacción vital"),
-    ("personality", "Personality traits", "personal", "personality; big five; traits; risk taking; empathy; leadership; personalidad"),
-    ("socialisation", "Socialisation (school, adolescence, friendships)", "personal", "socialisation; socialization; adolescence; school; friendships; friends; peers; single-sex schooling; socialización; amistades"),
-    ("leisure", "Leisure & cultural consumption", "personal", "leisure; culture; sport; reading; cultural consumption; ocio"),
-    ("care", "Care work", "personal;gender", "care; care work; caregiving; childcare; cuidados"),
-    ("conjoint", "Conjoint experiment", "design", "conjoint; conjoint experiment; experiment"),
-    ("vignette", "Vignette / split-ballot experiment", "design", "vignette; survey experiment; split ballot; split-sample; experiment"),
-    ("weights", "Survey weights", "design", "weights; weight; weighting"),
+    ("women_politics", "Women in politics", "gender", "women in politics; women candidates; female politicians; female leaders; political representation; candidate gender; mujeres en política"),
+    ("discrimination", "Perceived discrimination", "gender", "discrimination; unfair treatment; gender discrimination; discriminación"),
+    # Gender identity, sexuality & bodily autonomy
+    ("masc_fem", "Masculinity / femininity", "genid", "masculinity; femininity; gender identity; gender salience; masculinidad; feminidad"),
+    ("lgbtiq", "LGBTIQ+ & trans rights", "genid", "LGBT; LGBTIQ; trans; transgender; gender self-determination; same-sex adoption; trans law; ley trans"),
+    ("abortion", "Abortion", "genid", "abortion; reproductive rights; bodily autonomy; aborto"),
+    ("surrogacy_sexwork", "Surrogacy & sex work", "genid", "surrogacy; sex work; prostitution; morality policy; gestación subrogada; trabajo sexual"),
+    # Europe
+    ("eu_integration", "EU integration & competences", "europe", "European integration; EU integration; EU competences; EU policy; federalism; Europeanisation; integración europea"),
+    ("eu_reform", "EU reform", "europe", "EU reform; democratic deficit; Spitzenkandidat; transnational lists; EU referendum"),
+    ("eu_knowledge", "EU knowledge", "europe", "EU knowledge; knowledge about the EU; informed about the EU"),
+    ("identity_attachment", "European & national identity", "europe", "identity; attachment; national identity; European identity; nationalism; identidad; nacionalismo"),
+    ("zero_sum", "Zero-sum perceptions", "europe", "zero-sum; zero sum; relative gains; winners and losers"),
+    # Media, digital & AI
+    ("news_media", "News use", "media", "news; media use; information sources; newspapers; television; radio; consumo de medios; noticias"),
+    ("social_media", "Social media & influencers", "media", "social media; internet use; online; screen time; influencers; streamers; content creators; YouTubers; parasocial; redes sociales; creadores de contenido; TikTok; Instagram"),
+    ("ai_attitudes", "AI attitudes & use", "media", "artificial intelligence; AI; AI attitudes; AI use; ChatGPT; generative AI; inteligencia artificial; IA"),
+    ("ai_governance", "AI in government", "media", "AI regulation; algorithmic governance; AI in public administration; automated decision-making; regulación IA"),
+    ("digital_rights", "Digital rights", "media", "digital rights; privacy; data protection; digitalisation; digitalization; technology trust; facial recognition; cybersecurity"),
+    # Other policy preferences
+    ("taxation", "Taxation & redistribution", "policy", "tax; taxes; taxation; redistribution; progressive taxation; tax evasion; deservingness; meritocracy; impuestos; redistribución"),
+    ("climate", "Climate & energy", "policy", "climate change; environment; energy; renewables; cambio climático; energía; medio ambiente"),
+    # Personality & values
+    ("personality", "Personality traits", "values", "personality; big five; traits; empathy; personalidad"),
+    ("traditional_values", "Traditional & authoritarian values", "values", "traditional values; family values; authoritarianism; child qualities; valores tradicionales"),
+    ("risk_leadership", "Risk-taking & leadership", "values", "risk taking; risk aversion; leadership; assertiveness; riesgo; liderazgo"),
+    # Socialisation
+    ("school_history", "School & education history", "socialisation", "school type; private school; single-sex school; schooling history; colegio; escuela"),
+    ("peers", "Peers & friendships", "socialisation", "friends; friendships; peers; adolescence; youth activities; amistades; adolescencia"),
+    ("family_origin", "Family of origin", "socialisation", "siblings; brothers; sisters; parents; family of origin; hermanos; padres"),
+    # Care & family life
+    ("care_others", "Care for others", "care", "care; care work; caregiving; childcare; elderly care; cuidados"),
+    ("domestic_work", "Division of domestic work", "care", "housework; domestic work; division of labour; household chores; tareas domésticas"),
+    ("partnership", "Partnership & relationships", "care", "partner; couple; relationship; dating; romantic relationships; single; pareja; relaciones"),
+    # Leisure & everyday life
+    ("leisure_culture", "Leisure & cultural activities", "leisure", "leisure; culture; sport; reading; cultural consumption; going out; ocio; cultura"),
+    ("volunteering", "Volunteering & associations", "leisure", "volunteering; associations; civil society; clubs; community; voluntariado; asociaciones"),
+    ("time_use", "Time use", "leisure", "time use; time budget; uso del tiempo"),
+    # Wellbeing
+    ("life_satisfaction", "Life satisfaction", "wellbeing", "life satisfaction; happiness; satisfacción vital; felicidad"),
+    ("subjective_health", "Subjective health & wellbeing", "wellbeing", "health; self-rated health; mental health; wellbeing; salud; bienestar"),
 ]
 
 # ---------------------------------------------------------------- surveys
@@ -334,6 +352,58 @@ add(T, "P49", "Type of place of residence (farm to big city)", "¿Cómo describi
 add(T, "P50", "Marital status", "¿Cuál es tu estado civil?", "4 categories", "marital")
 add(T, "P51–P53", "Has children; age of youngest child; has a daughter", "¿Tienes hijos/as? / ¿Cuál es la edad de tu hijo/a menor? / ¿Alguno/a de tus hijos/as es mujer?", "Categorical", "children")
 add(T, "P54", "Sexual orientation", "Dirías que tu orientación sexual es…", "Heterosexual / homosexual / bisexual / other", "sexual_orientation")
+
+# ---------------------------------------------------------------- map first-pass tags to the final taxonomy
+MAP = {"marital": "family_household", "children": "family_household", "siblings": "family_origin",
+       "ethnicity": "migration", "ptv": "party_leader_eval", "leader_eval": "party_leader_eval",
+       "regime_preferences": "democracy_support", "incivility": "polarisation", "trust_political": "trust_national",
+       "gender_attitudes": "gender_roles", "gender_backlash": "feminism", "women_representation": "women_politics",
+       "gender_identity": "masc_fem", "morality_policy": "surrogacy_sexwork", "influencers": "social_media",
+       "ai_use": "ai_attitudes", "deservingness": "taxation", "leisure": "leisure_culture", "care": "care_others",
+       "socialisation": "peers", "conjoint": None, "vignette": None, "weights": None}
+OVERRIDES = {
+    ("express2", "q23"): "eu_knowledge;political_interest",
+    ("express2", "q24_1–q24_7"): "eu_knowledge;political_interest",
+    ("express2", "q39_1–q39_10"): "gender_roles;feminism;gender_policy;women_politics;eu_integration",
+    ("express2", "q43_1–q43_2"): "traditional_values;lgbtiq;gender_roles",
+    ("aidem", "P7, P8"): "family_origin",
+    ("aidem", "P9"): "social_origin;occupation;family_origin",
+    ("aidem", "HIJOS"): "family_household",
+    ("aidem", "P10_1–P10_10"): "personality",
+    ("aidem", "P11_1–P11_4"): "peers;social_media",
+    ("aidem", "P12"): "school_history;education",
+    ("aidem", "P13"): "school_history",
+    ("aidem", "P14_1–P14_6"): "peers;masc_fem",
+    ("aidem", "P15, P16"): "peers",
+    ("aidem", "P19_1–P19_10"): "leisure_culture;volunteering;care_others",
+    ("aidem", "P20"): "leisure_culture",
+    ("aidem", "P28"): "social_media;protest",
+    ("aidem", "P42_1–P42_8"): "sexism;gender_roles;feminism",
+    ("aidem", "P47"): "family_household",
+    ("aidem", "P49–P51"): "partnership;feminism",
+    ("twiceasgood", "P20_1–P20_4"): "personality;risk_leadership;masc_fem",
+    ("twiceasgood", "P21"): "discrimination",
+    ("twiceasgood", "P22–P25"): "discrimination;women_politics",
+    ("twiceasgood", "P27"): "gender_policy;care_others",
+    ("twiceasgood", "P33_1–P33_4"): "sexism",
+    ("twiceasgood", "P34_1–P34_2"): "sexism",
+    ("twiceasgood", "P35_1–P35_4"): "gender_roles;lgbtiq;traditional_values",
+    ("twiceasgood", "P50"): "family_household",
+    ("twiceasgood", "P51–P53"): "family_household",
+}
+used = set()
+for v in V:
+    key = (v["survey_id"], v["variable"])
+    if key in OVERRIDES:
+        tags = OVERRIDES[key].split(";"); used.add(key)
+    else:
+        tags = [MAP.get(c, c) for c in v["concepts"].split(";")]
+    out = []
+    for t in tags:
+        if t and t not in out: out.append(t)
+    v["concepts"] = ";".join(out)
+assert used == set(OVERRIDES), set(OVERRIDES) - used
+V = [v for v in V if v["concepts"]]
 
 # ---------------------------------------------------------------- checks + write
 cids = {c[0] for c in CONCEPTS}

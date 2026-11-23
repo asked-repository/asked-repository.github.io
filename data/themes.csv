@@ -1,13 +1,16 @@
 ﻿theme_id,theme_label
 sociodem,Socio-demographics
 ses,Socio-economic status
-electoral,Electoral behaviour
-polatt,Political attitudes & engagement
+polbeh,Political behaviour
+polori,Political orientations
 trust,Trust
-eu,Attitudes towards the EU
-gender,Attitudes towards gender equality
-sexgender,"Gender identity, sexuality & morality policy"
-media,Media & social media
-ai,AI & digital technologies
-personal,"Personal life, values & socialisation"
-design,"Design features (experiments, weights)"
+gender,Gender attitudes
+genid,"Gender identity, sexuality & bodily autonomy"
+europe,Europe
+media,"Media, digital & AI"
+policy,Other policy preferences
+values,Personality & values
+socialisation,Socialisation
+care,Care & family life
+leisure,Leisure & everyday life
+wellbeing,Wellbeing
