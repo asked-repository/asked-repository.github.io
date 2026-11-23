@@ -1,0 +1,70 @@
+﻿concept_id,concept_label,themes,synonyms
+gender,Gender / sex,sociodem,gender; sex; man; woman; men; women; género; sexo; hombre; mujer; gènere
+age,Age,sociodem,age; cohort; generation; young; youth; edad; jóvenes; edat
+marital,Marital & relationship status,sociodem;personal,marital status; married; partner; couple; relationship; dating; single; estado civil; pareja
+children,Children & family,sociodem,children; kids; parenthood; parents; fertility; family; daughters; hijos; hijas; fills
+siblings,Siblings,sociodem,siblings; brothers; sisters; hermanos; germans
+sexual_orientation,Sexual orientation,sociodem;sexgender,sexual orientation; LGBT; gay; lesbian; bisexual; heterosexual; orientación sexual
+ethnicity,Ethnicity & migration background,sociodem,ethnicity; race; ethnic; migrant; immigrant; migration background; citizenship; country of birth; nationality; origen; inmigrante; nacionalidad
+residence,"Place of residence (country, region, urban/rural)",sociodem,residence; region; rural; urban; city; territory; country; postcode; province; comunidad autónoma; provincia
+religion,Religion & religiosity,sociodem;personal,religion; religiosity; religious; church attendance; catholic; religión; religiosidad
+education,Education,ses,education; educational attainment; schooling; degree; university; educación; estudios; nivel educativo
+occupation,Occupation / social class,ses,occupation; class; social class; ISCO; job; profession; ocupación; clase social
+employment,Employment status,ses,employment; unemployment; unemployed; labour market status; work status; retired; student; empleo; paro; situación laboral
+income,Income,ses,income; household income; earnings; wealth; ingresos; renta; salario
+social_origin,Social origin (parents' occupation),ses,social origin; parents occupation; father; mother; social mobility; class origin; origen social
+subjective_economy,Personal economic situation,ses,personal economic situation; household finances; egotropic; economic hardship; situación económica personal
+vote_choice,Vote choice / vote intention,electoral,vote choice; vote intention; party choice; recalled vote; voting behaviour; party vote; voto; intención de voto; recuerdo de voto
+turnout,Turnout / abstention,electoral,turnout; abstention; voted; electoral participation; participación electoral; abstención
+ptv,Party evaluations & propensity to vote,electoral,party like dislike; party thermometer; propensity to vote; PTV; party sympathy; affective polarization; polarisation; valoración de partidos
+leader_eval,Leader / candidate evaluations,electoral,leader; leaders; candidate; candidates; leader evaluation; likeability; valoración de líderes; candidatos
+campaign,Campaign exposure & mobilisation,electoral,campaign; electoral campaign; debates; party contact; canvassing; mobilisation; mobilization; campaña
+gov_eval,Government performance,electoral,government approval; government performance; retrospective; evaluación del gobierno
+economic_perceptions,National economic perceptions,electoral,economy; sociotropic; economic evaluation; inflation; prices; unemployment perceptions; economía; precios
+left_right,Ideology (left–right),polatt,ideology; left right; left-right; self-placement; ideología; izquierda derecha
+political_interest,Political interest,polatt,political interest; interest in politics; interés por la política
+efficacy,Political efficacy,polatt,efficacy; external efficacy; political influence; voice; eficacia política
+democracy_satisfaction,Satisfaction with democracy,polatt,satisfaction with democracy; democratic satisfaction; satisfacción con la democracia
+regime_preferences,Regime preferences / support for democracy,polatt,regime preferences; democracy support; strong leader; technocracy; experts; direct democracy; authoritarianism; military rule; stealth democracy; populism
+corruption,Perceived corruption,polatt,corruption; corrupción
+taxation,Taxation & redistribution,polatt,tax; taxes; taxation; redistribution; progressive taxation; tax evasion; impuestos; redistribución
+deservingness,Deservingness / meritocracy,polatt,deservingness; meritocracy; deserve; fairness; merecimiento
+climate,Climate change & energy,polatt,climate change; environment; energy; renewables; cambio climático; energía; medio ambiente
+incivility,"Political incivility, conflict & compromise",polatt,incivility; uncivil; political conflict; compromise; negative campaigning; polarization; crispación
+political_violence,Political violence,polatt,political violence; intimidation; violencia política
+protest,Protest & non-electoral participation,polatt,protest; demonstration; political participation; mobilisation; 8M; manifestación
+trust_political,Trust in national political institutions & actors,trust,political trust; institutional trust; trust in parliament; trust in government; trust politicians; distrust; confianza política; confianza en las instituciones
+trust_eu,Trust in the EU,trust;eu,EU trust; trust in the EU; EU distrust; trust European Commission; trust European Parliament; confianza en la UE
+social_trust,Social / interpersonal trust,trust,social trust; interpersonal trust; generalised trust; generalized trust; trust in people; confianza social
+eu_integration,EU integration & EU competences,eu,European integration; EU integration; EU competences; EU policy; federalism; Europeanisation; integración europea
+eu_reform,EU democratic reform,eu,EU reform; democratic deficit; Spitzenkandidat; transnational lists; EU referendum
+eu_knowledge,EU / political knowledge,eu;polatt,knowledge; political knowledge; EU knowledge; informed; conocimiento político
+identity_attachment,National & European identity / attachment,eu,identity; attachment; national identity; European identity; nationalism; identidad; nacionalismo
+zero_sum,Zero-sum perceptions,eu,zero-sum; zero sum; relative gains; winners and losers
+gender_attitudes,Gender attitudes & sexism,gender,gender attitudes; sexism; hostile sexism; benevolent sexism; modern sexism; gender roles; gender equality; machismo; actitudes de género; igualdad de género
+gender_backlash,Anti-feminism / gender backlash,gender,backlash; anti-feminism; antifeminism; gone too far; men disadvantaged; antifeminismo
+feminism,Feminism & the feminist movement,gender,feminism; feminist; feminist movement; women's movement; 8M; feminismo
+gender_policy,Gender equality policies,gender,gender policy; gender quotas; quotas; parity; parental leave; equal pay; cuotas; paridad; permisos
+gbv,Gender-based violence,gender,gender-based violence; GBV; violence against women; Istanbul Convention; sexual consent; violencia de género
+women_representation,Women in politics / candidate gender,gender,women in politics; women candidates; female politicians; political representation; candidate gender; mujeres en política
+discrimination,Perceived discrimination,gender,discrimination; unfair treatment; discriminación
+traditional_values,Traditional & authoritarian values,personal;gender,traditional values; family values; authoritarianism; child qualities; valores tradicionales
+gender_identity,Gender identity (masculinity / femininity),sexgender,masculinity; femininity; gender identity; gender salience; masculinidad; feminidad
+lgbtiq,LGBTIQ+ & trans rights,sexgender,LGBT; LGBTIQ; trans; transgender; gender self-determination; same-sex adoption; trans law; ley trans
+abortion,Abortion,sexgender,abortion; reproductive rights; aborto
+morality_policy,"Morality policy (surrogacy, sex work, euthanasia)",sexgender,morality policy; surrogacy; sex work; prostitution; euthanasia; gestación subrogada; trabajo sexual
+news_media,News & media use,media,news; media use; information sources; newspapers; television; radio; consumo de medios; noticias
+social_media,Social media & digital habits,media,social media; internet use; online; digital use; screen time; redes sociales; TikTok; Instagram; Twitter
+influencers,Influencers & content creators,media,influencers; streamers; content creators; YouTubers; parasocial; creadores de contenido
+ai_attitudes,Attitudes towards AI,ai,artificial intelligence; AI; AI attitudes; AI emotions; AI risks; inteligencia artificial; IA
+ai_use,Use of AI tools,ai,AI use; ChatGPT; generative AI; Copilot; Gemini; uso de IA
+ai_governance,AI in government & AI regulation,ai,AI regulation; algorithmic governance; AI in public administration; automated decision-making; regulación IA
+digital_rights,Digital technologies & digital rights,ai,digital rights; privacy; data protection; digitalisation; digitalization; technology trust; facial recognition; cybersecurity
+life_satisfaction,Life satisfaction & wellbeing,personal,life satisfaction; wellbeing; happiness; satisfacción vital
+personality,Personality traits,personal,personality; big five; traits; risk taking; empathy; leadership; personalidad
+socialisation,"Socialisation (school, adolescence, friendships)",personal,socialisation; socialization; adolescence; school; friendships; friends; peers; single-sex schooling; socialización; amistades
+leisure,Leisure & cultural consumption,personal,leisure; culture; sport; reading; cultural consumption; ocio
+care,Care work,personal;gender,care; care work; caregiving; childcare; cuidados
+conjoint,Conjoint experiment,design,conjoint; conjoint experiment; experiment
+vignette,Vignette / split-ballot experiment,design,vignette; survey experiment; split ballot; split-sample; experiment
+weights,Survey weights,design,weights; weight; weighting
