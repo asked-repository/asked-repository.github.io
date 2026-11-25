@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Survey Finder — a collaborative survey atlas</title>
+<title>ASKED — Atlas of Surveys for Knowledge Exchange &amp; Discovery</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,650&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -17,7 +17,7 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif}
 h1,h2,h3{font-family:"Source Serif 4",Georgia,serif;font-weight:650;margin:0}
 a{color:var(--accent)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+.wrap{max-width:1680px;margin:0 auto;padding:0 clamp(16px,4vw,64px)}
 button{font:inherit;cursor:pointer}
 
 /* header + nav */
@@ -32,7 +32,12 @@ section.view{display:none;padding:28px 0 50px}
 section.view.on{display:block}
 
 /* about */
-.about{max-width:760px}
+.about{max-width:1100px}
+.about p{max-width:880px}
+.people{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:12px 0 6px}
+.person{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.person .nm{font-weight:600}
+.person .af{font-size:13.5px;color:var(--muted);margin-top:2px}
 .about h2{font-size:26px;margin-bottom:10px}
 .about h3{font-size:19px;margin:30px 0 8px}
 .about p{margin:0 0 12px;color:#30363d}
@@ -51,10 +56,10 @@ section.view.on{display:block}
 
 /* chips & badges */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:3px 11px;font-size:13px;color:var(--ink)}
+.chip{border:1px solid #e2dccd;background:#f3efe6;border-radius:999px;padding:3px 11px;font-size:13px;color:var(--ink)}
 .chip:hover{border-color:var(--accent)}
 .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
-#subChips .chip{font-size:12.5px;background:#fbfaf7}
+#subChips .chip{font-size:12.5px;background:#f3efe6}
 #subChips .chip.on{background:var(--accent);color:#fff}
 .chip .n{color:var(--muted);font-size:11.5px;margin-left:4px}
 .chip.on .n{color:#d6e6df}
@@ -107,7 +112,7 @@ section.view.on{display:block}
 .q .orig{font-size:13px;margin-top:4px;color:#3a3f45}
 .q .scale{font-size:12.5px;color:var(--muted);margin-top:3px}
 .q .cts{margin-top:5px;display:flex;flex-wrap:wrap;gap:4px}
-.q .cts span{font-size:11px;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:4px;padding:0 6px;color:#4a525b}
+.q .cts span{font-size:11px;background:#f3efe6;border:1px solid #e2dccd;border-radius:4px;padding:0 6px;color:#4a525b}
 .none{color:var(--muted);font-size:13px;font-style:italic}
 .cardfoot{margin-top:12px;font-size:13.5px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted)}
 .linkbtn{background:none;border:0;color:var(--accent);font-weight:600;padding:0}
@@ -128,7 +133,7 @@ section.view.on{display:block}
 .k{display:block;color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
 .tbc{color:var(--muted);font-style:italic}
 .ccy{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
-.ccy span{font-size:12px;background:#f0ede6;border-radius:4px;padding:2px 7px}
+.ccy span{font-size:12px;background:#f3efe6;border:1px solid #e2dccd;border-radius:4px;padding:2px 7px}
 .topics{font-size:14px;margin-top:12px}
 .contact{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:13.5px}
 @media(max-width:760px){.contact{grid-template-columns:1fr}}
@@ -142,8 +147,8 @@ footer{color:var(--muted);font-size:13px;padding:14px 0 40px;border-top:1px soli
 <body>
 <div class="wrap">
   <header>
-    <h1>Survey Finder</h1>
-    <div class="sub">A collaborative atlas of survey questionnaires from our research projects</div>
+    <h1>ASKED</h1>
+    <div class="sub">Atlas of Surveys for Knowledge Exchange &amp; Discovery</div>
     <nav>
       <a href="#about" data-view="about">About</a>
       <a href="#search" data-view="search">Search</a>
@@ -156,7 +161,7 @@ footer{color:var(--muted);font-size:13px;padding:14px 0 40px;border-top:1px soli
     <div class="about">
       <h2>Has someone already asked this?</h2>
       <p>Many of us run surveys within our research projects, and most of them include far more questions than we ever have time to analyse. At the same time, many researchers, especially PhD students, have research questions but no funding to field their own survey.</p>
-      <p>Survey Finder brings the questionnaires of these project surveys together in one searchable place. Its aim is simple: to let you find out whether someone in our network has already collected the data you need, and to make it easy to get in touch to use it or to collaborate.</p>
+      <p>ASKED (Atlas of Surveys for Knowledge Exchange &amp; Discovery) brings the questionnaires of these project surveys together in one searchable place. Its aim is simple: to let you find out whether someone in our network has already collected the data you need, and to make it easy to get in touch to use it or to collaborate.</p>
 
       <h3>How it works</h3>
       <div class="steps">
@@ -178,11 +183,18 @@ footer{color:var(--muted);font-size:13px;padding:14px 0 40px;border-top:1px soli
       <p>Each survey shows the reference its owners want cited: a data paper, the first publication using the data, or a DOI. Owners who don't have one yet can get a free DOI by depositing their questionnaire on <a href="https://zenodo.org">Zenodo</a>.</p>
 
       <h3>Add your survey</h3>
-      <p>Fill in the contribution form and attach your questionnaire or codebook (PDF, Word, Excel, or SPSS/Stata files with labels). We take care of adding it to the site. You decide the access status, how your data should be cited, and whether the full questionnaire can be downloaded.</p>
+      <p>Fill in the contribution form and share a link to your questionnaire or codebook (PDF, Word, Excel, or SPSS/Stata files with labels). If you have a technical report or field note, share it too and you can skip the questions about fieldwork. We take care of adding your survey to the site. You decide the access status, how your data should be cited, and whether the full questionnaire can be downloaded.</p>
 
       <div class="cta"><a class="btn" href="#search">Start searching</a><a class="btn ghost" href="#surveys">Browse all surveys</a></div>
 
-      <div class="credits">Survey Finder is created and maintained by <a href="https://sites.google.com/view/bcaihuelas/">Berta Caihuelas Navajas</a> and <a href="https://sites.google.com/view/alejandro-tirado/home">Alejandro Tirado Castro</a>.</div>
+      <h3>About us</h3>
+      <p>ASKED is run by:</p>
+      <div class="people">
+        <div class="person"><div class="nm"><a href="https://bcaihuelas.github.io/">Berta Caihuelas Navajas</a></div><div class="af">Postdoctoral Researcher, Universidad Carlos III de Madrid</div></div>
+        <div class="person"><div class="nm"><a href="https://sites.google.com/view/alejandro-tirado/home">Alejandro Tirado Castro</a></div><div class="af">Postdoctoral Researcher, Institute for Public Goods and Policies (IPP-CSIC)</div></div>
+        <div class="person"><div class="nm">Lidia Núñez Alañón</div><div class="af">PhD Candidate, Universidad Carlos III de Madrid</div></div>
+      </div>
+      <div class="credits">Any questions? Contact <a href="mailto:bcaihuel@clio.uc3m.es">bcaihuel@clio.uc3m.es</a></div>
     </div>
   </section>
 
@@ -226,7 +238,7 @@ footer{color:var(--muted);font-size:13px;padding:14px 0 40px;border-top:1px soli
     <div class="slist" id="slist"></div>
   </section>
 
-  <footer>Questionnaire content belongs to each project. Survey Finder only lists questionnaires; the data stays with its owners.</footer>
+  <footer>Any questions? Contact <a href="mailto:bcaihuel@clio.uc3m.es">bcaihuel@clio.uc3m.es</a> · Questionnaire content belongs to each project; the data stays with its owners.</footer>
 </div>
 
 <script src="data/preview-data.js"></script>
